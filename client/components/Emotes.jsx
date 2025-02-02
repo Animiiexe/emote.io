@@ -4,7 +4,7 @@ import { Card } from "@heroui/card";
 import { Button } from "@heroui/button";
 
 const socket = io(
-  "https://stunning-space-waddle-w6j694w4p74c5rwr-8000.app.github.dev/"
+  "https://top-margi-animiiexe-0c73464c.koyeb.app/"
 );
 
 function Emote() {
