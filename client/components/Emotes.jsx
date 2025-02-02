@@ -1,18 +1,25 @@
+import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
-
 import { Card } from "@heroui/card";
 import { Button } from "@heroui/button";
-import { useState } from "react";
 
-const socket = io("https://stunning-space-waddle-w6j694w4p74c5rwr-8000.app.github.dev")
+const socket = io(
+  "https://stunning-space-waddle-w6j694w4p74c5rwr-8000.app.github.dev/"
+);
 
 function Emote() {
   const [emoji, setEmoji] = useState("😏");
 
+  useEffect(() => {
+    socket.on("new_emoji", (data) => {
+      setEmoji(data);
+    });
+  }, []);
+
   return (
     <main className="min-h-screen flex items-center justify-center gap-4 flex-col">
-      <h1 className="text-3xl capitalize font-bold">emote.io</h1>
-      <Card className="text-8xl p-3">{emoji}</Card>
+      <h1 className="text-3xl lowercase font-bold">emote.io</h1>
+      <Card className="text-6xl p-3">{emoji}</Card>
       <ShowEmotes setEmoji={setEmoji} />
     </main>
   );
@@ -23,7 +30,7 @@ function ShowEmotes({ setEmoji }) {
 
   const handleBtnClick = (emoji) => {
     setEmoji(emoji);
-    
+    socket.emit("emoji", emoji);
   };
 
   return (
